@@ -1,19 +1,17 @@
 /*
-=====================================================================================
+=========================================================================================================
 SHOWCODE LEVEL-UP SOCIETY HACKATHON 2021 - Better Retail
 Title: 
-Contributors:  Abdullah Al Asif, Ahmad Saif, Fateen Tahseen Alam & Nazmul Hasan Fahim
+Contributors: Abdullah Al Asif, Abrar Mahbub Tanim, Ahmad Saif, Fateen Tahseen Alam & Nazmul Hasan Fahim
 Date: 18 July 2021
 Purpose: 
 
 Please refer to the README.txt for further explanation about the prototype program
-=====================================================================================
+=========================================================================================================
 */
 
 import java.io.*;
 import java.util.*;
-
-import javax.swing.text.Position;
 
 
 public class mainProgram{
@@ -26,7 +24,6 @@ public class mainProgram{
         mainMenu(ID);
         outroMsg();
         System.exit(0);
-
     }
 
 
@@ -44,7 +41,7 @@ public class mainProgram{
                     if(UserID < 100000 || UserID > 999999){
                         System.out.println();
                         System.out.println("Invalid Input!");
-                        System.out.println("Hint: Enter any 6 digit number");
+                        System.out.println("Hint: Enter any 6 digit number, first digit cannot be 0");
                         System.out.println();
                     }
                     else{
@@ -67,7 +64,7 @@ public class mainProgram{
                     if(UserPIN < 1000 || UserPIN > 9999){
                         System.out.println();
                         System.out.println("Invalid Input!");
-                        System.out.println("Hint: Enter any 4 digit number");
+                        System.out.println("Hint: Enter any 4 digit number, first digit cannot be 0");
                         System.out.println();
                     }
                     else{
@@ -113,7 +110,7 @@ public class mainProgram{
                 bottleType = scanner.nextInt();
 
                 if (bottleType > 4 || bottleType <0){
-                    System.out.println("Invalid Type, try again");
+                    System.out.println("Invalid Option, try again");
                     validNum = false;
                 }
                 else{
@@ -133,28 +130,34 @@ public class mainProgram{
         int bottleNumber = 0;
         boolean numInvalid = true;
 
-        try {
-            while(numInvalid){
-                System.out.println("How many bottles do you want to recycle? (Max 100 pcs)");
-                bottleNumber = scanner.nextInt();
-
-                if(bottleNumber < 1 || bottleNumber > 100){
-                    System.out.println("Invalid Number, please try again");
-                    numInvalid = true;
-                }
-                else{
-                    numInvalid = false;
-                }
-            }
+        if (bottleType == 0){
+            System.out.println("You have skipped recycling bottles for this session");
+        }
+        if (bottleType != 0){
+            try {
+                while(numInvalid){
+                    System.out.println("How many bottles do you want to recycle? (Max 100 pcs)");
+                    bottleNumber = scanner.nextInt();
     
-        } catch (InputMismatchException e) {
-            errorMsg();
-        }    
+                    if(bottleNumber < 1 || bottleNumber > 100){
+                        System.out.println("Invalid Number, please try again");
+                        numInvalid = true;
+                    }
+                    else{
+                        numInvalid = false;
+                    }
+                }
+        
+            } catch (InputMismatchException e) {
+                errorMsg();
+            }    
+    
+            System.out.println("");
+            System.out.println("You are going to recycle "+ bottleNumber + " bottles");
+            startProcessPrompt();
+            wait3s();
+        }
 
-        System.out.println("");
-        System.out.println("You are going to recycle "+ bottleNumber + " bottles");
-        startProcessPrompt();
-        wait3s();
 
         boolean bottleSubmit = false;
 
@@ -180,11 +183,13 @@ public class mainProgram{
         System.out.println();
         System.out.println();
 
+
         if(bottleSubmit){
             System.out.println("Your bottles are submitted successfully!");
             System.out.println();
         }
-
+        boolean goBack = true;
+        while(goBack){
         System.out.println("");
         System.out.println("Your available points: "+currentPoints);
         System.out.println("What do you want to do?");
@@ -213,82 +218,137 @@ public class mainProgram{
         }
         
         int position = 1;
-
-        if(choice == 1){
-            System.out.println("You have selected to view the Leaderboard");
-            System.out.println("");
-            System.out.println("");
-            System.out.println("======================================");
-            System.out.println("              LEADERBOARD");
-            System.out.println("======================================");
-            String filename = "leaderboard.csv";
-
-            BufferedReader inputStream1 = new BufferedReader(new FileReader(filename));
-            String leader = inputStream1.readLine();
-
-            while(leader != null){
-                String[] leaderComponents = leader.split(",");
-                int leaderPoints = Integer.parseInt(leaderComponents[0]);
-
-                if (leaderPoints > currentPoints){
-                    System.out.println(position+ ": "+leaderComponents[1]+" with "+leaderPoints+ " Points");
-                    position++;
+            if(choice == 1){
+                System.out.println("You have selected to view the Leaderboard");
+                System.out.println("");
+                System.out.println("");
+                System.out.println("======================================");
+                System.out.println("              LEADERBOARD");
+                System.out.println("======================================");
+                String filename = "leaderboard.csv";
+    
+                BufferedReader inputStream1 = new BufferedReader(new FileReader(filename));
+                String leader = inputStream1.readLine();
+    
+                while(leader != null){
+                    String[] leaderComponents = leader.split(",");
+                    int leaderPoints = Integer.parseInt(leaderComponents[0]);
+    
+                    if (leaderPoints > currentPoints){
+                        System.out.println(position+ ": "+leaderComponents[1]+" with "+leaderPoints+ " Points");
+                        position++;
+                    }
+    
+                    leader = inputStream1.readLine();
                 }
-
-                leader = inputStream1.readLine();
-            }
-            inputStream1.close();
-
-            System.out.println(position+": John with "+currentPoints+" Points (You)");
-            position++;
-
-            BufferedReader inputStream2 = new BufferedReader(new FileReader(filename));
-            String leader2 = inputStream2.readLine();
-
-            while(leader2 != null){
-                String [] leaderComponents = leader2.split(",");
-                int leaderPoints = Integer.parseInt(leaderComponents[0]);
-
-                if (leaderPoints <= currentPoints){
-                    System.out.println(position+ ": "+leaderComponents[1]+" with "+ leaderPoints+" Points");
-                    position++;
+                inputStream1.close();
+    
+                System.out.println(position+": John with "+currentPoints+" Points (You)");
+                position++;
+    
+                BufferedReader inputStream2 = new BufferedReader(new FileReader(filename));
+                String leader2 = inputStream2.readLine();
+    
+                while(leader2 != null){
+                    String [] leaderComponents = leader2.split(",");
+                    int leaderPoints = Integer.parseInt(leaderComponents[0]);
+    
+                    if (leaderPoints <= currentPoints){
+                        System.out.println(position+ ": "+leaderComponents[1]+" with "+ leaderPoints+" Points");
+                        position++;
+                    }
+                    leader2 = inputStream2.readLine();
                 }
-                leader2 = inputStream2.readLine();
+                inputStream2.close();
+                System.out.println("======================================");
+    
+                try{
+                    Thread.sleep(3000);
+                }
+                catch(InterruptedException ex){
+                    Thread.currentThread().interrupt();
+                }
+                System.out.println();
+                System.out.println();
+                System.out.println("Do you want to go to the previous menu? y/n");
+                scanner.nextLine();
+                String answer = scanner.nextLine();
+                if (answer.equals("y")){
+                    goBack = true;
+                }
+                else{
+                    goBack = false;
+                }
+                System.out.println();
             }
-            inputStream2.close();
-            System.out.println("         END OF THE LEADERBOARD");
-            System.out.println("======================================");
-
-        }
-        else if(choice == 2){
-            System.out.println("You have selected to redeem a coupon.");
-            System.out.println("");
-            System.out.println("You will receive a 5$ coupon for 1000 points");
-            customPrompt("Press Enter key to continue");
-            wait3s();
-            System.out.println("");
-            System.out.println("");
-            System.out.println("Your Coupon Code is: 32XF3-FDS31-DUMMY-F2F11-1FS23");
-            System.out.println("");
-            System.out.println("Please receive the physical copy of your coupon from the printing bay.");
-            System.out.println("");
-            System.out.println("");
-            try{
-                Thread.sleep(1500);
+            else if(choice == 2){
+                scanner.nextLine();
+                System.out.println("You have selected to redeem a coupon.");
+                System.out.println("");
+                System.out.println("You will receive a 5$ coupon for 1000 points");
+                System.out.println("Press 1 to continue, 0 to Cancel");
+                String prompt = scanner.nextLine();
+    
+                if(currentPoints < 1000){
+                    System.out.println("You don't have enough points.");
+                }
+                else if (prompt.equals("1")){
+                    wait3s();
+                    System.out.println("");
+                    System.out.println("");
+                    String coupon = couponGenerate();
+                    System.out.println("Your Coupon Code is: "+coupon);
+                    currentPoints -= 1000;
+                    System.out.println("");
+                    System.out.println("Please receive the physical copy of your coupon from the printing bay.");
+                    System.out.println("");
+                    System.out.println("");
+                    try{
+                        Thread.sleep(1500);
+                    }
+                    catch(InterruptedException ex){
+                        Thread.currentThread().interrupt();
+                    }
+                    System.out.println("Do you want to go to the previous menu? y/n");
+                    String answer = scanner.nextLine();
+                    if (answer.equals("y")){
+                        goBack = true;
+                    }
+                    else{
+                    goBack = false;
+                    }
+                }
             }
-            catch(InterruptedException ex){
-                Thread.currentThread().interrupt();
+            else{
+                System.out.println("You have selected to exit the session.");
+                goBack = false;
+                wait3s();
             }
         }
-        else{
-            System.out.println("You have selected to exit the session.");
-            wait3s();
-        }
+        
     }
 
 
+    public static String couponGenerate(){
+        Random ran = new Random();
+        int x = ran.nextInt(5) + 1;
 
-
+        if(x == 1){
+            return "S4HG0-V2AJ3-DUMMY-SA3B8-DS10A";
+        }
+        else if(x == 2){
+            return "F134V-FS12F-DUMMY-B12JF-SB31B";
+        }
+        else if(x == 3){
+            return "13VCV-2SJV0-DUMMY-FH30N-SD91H";
+        }
+        else if(x ==4){
+            return "H34FC-SA41G-DUMMY-GN328-GJA35";
+        }
+        else{
+            return "F2EWG-GW23G-DUMMY-2JVW9-FW90H";
+        }
+    }
 
     public static void delay(int time){
         try{
@@ -309,7 +369,10 @@ public class mainProgram{
 
 
     public static void outroMsg(){
+        System.out.println();
         System.out.println("Thank you for taking part in saving planet Earth!");
+        System.out.println();
+        System.out.println();
     }
 
     public static void errorMsg(){
@@ -328,6 +391,7 @@ public class mainProgram{
         }
         catch(Exception e){}
     }
+
     public static void customPrompt(String prompt){
         System.out.println(prompt);
         try{
