@@ -1,6 +1,7 @@
 /*
 =========================================================================================================
 SHOWCODE LEVEL-UP SOCIETY HACKATHON 2021 - Better Retail
+
 Title: 
 Contributors: Abdullah Al Asif, Abrar Mahbub Tanim, Ahmad Saif, Fateen Tahseen Alam & Nazmul Hasan Fahim
 Date: 18 July 2021
@@ -8,7 +9,7 @@ Purpose: A gamified plastic bottle collection system which award points to the u
          to stay at the top of leaderboard of a great community of people who help protect the world, and 
          points can also be consumed to get coupons for supported stores and marketplaces.
 
-**Please refer to the ReadmeProto.txt for further explanation about the prototype program's source code
+**Please refer to the READMEproto.txt for further explanation about the prototype program's source code
 =========================================================================================================
 */
 
