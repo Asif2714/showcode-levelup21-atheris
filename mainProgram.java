@@ -3,6 +3,7 @@
 SHOWCODE LEVEL-UP SOCIETY HACKATHON 2021 - Better Retail
 
 Title: 
+Team: Atheris
 Contributors: Abdullah Al Asif, Abrar Mahbub Tanim, Ahmad Saif, Fateen Tahseen Alam & Nazmul Hasan Fahim
 Date: 18 July 2021
 Purpose: A gamified plastic bottle collection system which award points to the users. The points are used
@@ -15,6 +16,7 @@ Purpose: A gamified plastic bottle collection system which award points to the u
 
 // Importing required Java libraries
 //
+
 import java.io.*;
 import java.util.*;
 
@@ -390,7 +392,7 @@ public class mainProgram{
     //
     public static void introMsg(){
         Scanner scanner = new Scanner(System.in);
-        System.out.println("WELCOME TO ----------");
+        System.out.println("WELCOME TO GREENIFY");
         System.out.println();
         System.out.println("PRESS ENTER KEY TO ACCESS THE SYSTEM");
         String prompt = scanner.nextLine();

@@ -2,6 +2,7 @@ SHOWCODE LEVEL-UP SOCIETY HACKATHON 2021 - Better Retail
 README file for detailed description about the program
 
 Title: 
+Team: Atheris
 Contributors: Abdullah Al Asif, Abrar Mahbub Tanim, Ahmad Saif, Fateen Tahseen Alam & Nazmul Hasan Fahim
 Date: 18 July 2021
 Purpose: A gamified plastic bottle collection system which award points to the users. The points are used
